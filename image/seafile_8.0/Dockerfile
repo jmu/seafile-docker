@@ -1,6 +1,7 @@
 # See https://hub.docker.com/r/phusion/baseimage/tags/
-FROM phusion/baseimage:0.11
-ENV SEAFILE_SERVER=seafile-server SEAFILE_VERSION=
+FROM phusion/baseimage:bionic-1.0.0-arm64
+
+ENV SEAFILE_SERVER=seafile-server SEAFILE_VERSION=8.0.3
 
 RUN apt-get update --fix-missing
 
@@ -14,11 +15,11 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get install tzdata -y
 RUN apt-get install -y nginx
 
 #
-RUN apt-get install -y libmysqlclient-dev
+RUN apt-get install -y libmysqlclient-dev libmemcached-dev zlib1g-dev
 
 # Python3
-RUN apt-get install -y python3 python3-pip python3-setuptools
-RUN python3.6 -m pip install --upgrade pip && rm -r /root/.cache/pip
+RUN apt-get install -y python3 python3-pip python3-setuptools python3-wheel
+RUN python3 -m pip install --upgrade pip && rm -r /root/.cache/pip
 
 RUN pip3 install --timeout=3600 click termcolor colorlog pymysql \
     django==2.2.* && rm -r /root/.cache/pip
@@ -47,10 +48,13 @@ RUN mkdir -p /etc/service/nginx && \
 # Seafile
 WORKDIR /opt/seafile
 
+# seafile-server-8.0.3-bionic-arm64v8.tar.gz
+# https://github.com/haiwen/seafile-rpi/releases/download/v8.0.3/seafile-server-8.0.3-bionic-arm64v8.tar.gz
+
 RUN mkdir -p /opt/seafile/ && cd /opt/seafile/ && \
-    wget https://download.seadrive.org/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz && \
-    tar -zxvf seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz && \
-    rm -f seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
+    wget https://github.com/haiwen/seafile-rpi/releases/download/v${SEAFILE_VERSION}/seafile-server-${SEAFILE_VERSION}-bionic-arm64v8.tar.gz && \
+    tar -zxvf seafile-server-${SEAFILE_VERSION}-bionic-arm64v8.tar.gz && \
+    rm -f seafile-server-${SEAFILE_VERSION}-bionic-arm64v8.tar.gz
 
 # For using TLS connection to LDAP/AD server with docker-ce.
 RUN find /opt/seafile/ \( -name "liblber-*" -o -name "libldap-*" -o -name "libldap_r*" -o -name "libsasl2.so*" \) -delete
