@@ -10,6 +10,21 @@
 
 If you are not familiar with docker commands, please refer to [docker documentation](https://docs.docker.com/engine/reference/commandline/cli/).
 
+## For seafile 8.x.x
+You need build docker first:
+```sh
+cd image/seafile_8.0
+docker build -t seafileltd/seafile-mc:8.0.3-pi .
+```
+
+and run:
+
+just refer https://docs.seafile.com/d/cb1d3f97106847abbf31/files/?p=/docker/docker-compose.yml
+change password you need and docker images above and run
+```sh
+docker-compose up -d
+```
+
 ## For seafile 7.x.x
 
 Starting with 7.0, we have adjusted seafile-docker image to use multiple containers. The old image runs MariaDB-Server and Memcached in the same container with Seafile server. Now, we strip the MariaDB-Server and Memcached services from the Seafile image and run them in their respective containers.
