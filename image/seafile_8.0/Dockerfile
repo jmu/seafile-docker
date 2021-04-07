@@ -14,8 +14,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get install tzdata -y
 # Nginx
 RUN apt-get install -y nginx
 
-#
-RUN apt-get install -y libmysqlclient-dev libmemcached-dev zlib1g-dev
+# for mysql
+#RUN apt-get install -y libmysqlclient-dev libmemcached-dev zlib1g-dev 
+# for maria
+RUN apt-get install -y libmariadbclient-dev libmemcached-dev zlib1g-dev
 
 # Python3
 RUN apt-get install -y python3 python3-pip python3-setuptools python3-wheel
