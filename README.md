@@ -28,6 +28,17 @@ change password you need and docker images above and run
 docker-compose up -d
 ```
 
+Note: this image use mariadb together, if you use mysql, please change the `image/seafile_8.0/Dockerfile` section bellow and build yourself
+
+
+```
+# for mysql
+#RUN apt-get install -y libmysqlclient-dev libmemcached-dev zlib1g-dev 
+# for maria
+RUN apt-get install -y libmariadbclient-dev libmemcached-dev zlib1g-dev
+```
+
+
 ## For seafile 7.x.x
 
 Starting with 7.0, we have adjusted seafile-docker image to use multiple containers. The old image runs MariaDB-Server and Memcached in the same container with Seafile server. Now, we strip the MariaDB-Server and Memcached services from the Seafile image and run them in their respective containers.
