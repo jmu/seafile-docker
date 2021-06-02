@@ -12,9 +12,11 @@
 
 If you are not familiar with docker commands, please refer to [docker documentation](https://docs.docker.com/engine/reference/commandline/cli/).
 
-## For seafile 8.x.x
+## For seafile 8.x.x (personal 
 
-You need build docker first:
+Pull image from dockerhub https://hub.docker.com/repository/docker/jmujmu/seafile-pi
+or build docker yourself on the pi device
+
 ```sh
 cd image/seafile_8.0
 docker build -t seafileltd/seafile-mc:8.0.3-pi .
