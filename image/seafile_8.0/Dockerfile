@@ -13,15 +13,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get install tzdata -y
 # Nginx
 RUN apt-get install -y nginx
 
-<<<<<<< HEAD
 # for mysql
 #RUN apt-get install -y libmysqlclient-dev libmemcached-dev zlib1g-dev 
 # for maria
 RUN apt-get install -y libmariadbclient-dev libmemcached-dev zlib1g-dev
-=======
-# Mysqlclient
-RUN apt-get install -y libmysqlclient-dev
->>>>>>> 673165a7da4647ef0fb79bfcc081cf57fbd6b204
 
 # Memcache
 RUN apt-get install -y libmemcached11 libmemcached-dev
@@ -30,12 +25,9 @@ RUN apt-get install -y libmemcached11 libmemcached-dev
 RUN apt-get install -y fuse
 
 # Python3
-<<<<<<< HEAD
-RUN apt-get install -y python3 python3-pip python3-setuptools python3-wheel
-=======
+#RUN apt-get install -y python3 python3-pip python3-setuptools python3-wheel
 RUN apt-get install -y python3 python3-pip python3-setuptools
 RUN rm -f /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
->>>>>>> 673165a7da4647ef0fb79bfcc081cf57fbd6b204
 RUN python3 -m pip install --upgrade pip && rm -r /root/.cache/pip
 
 RUN pip3 install --timeout=3600 click termcolor colorlog pymysql \
@@ -69,15 +61,9 @@ WORKDIR /opt/seafile
 # https://github.com/haiwen/seafile-rpi/releases/download/v8.0.3/seafile-server-8.0.3-bionic-arm64v8.tar.gz
 
 RUN mkdir -p /opt/seafile/ && cd /opt/seafile/ && \
-<<<<<<< HEAD
     wget https://github.com/haiwen/seafile-rpi/releases/download/v${SEAFILE_VERSION}/seafile-server-${SEAFILE_VERSION}-bionic-arm64v8.tar.gz && \
     tar -zxvf seafile-server-${SEAFILE_VERSION}-bionic-arm64v8.tar.gz && \
     rm -f seafile-server-${SEAFILE_VERSION}-bionic-arm64v8.tar.gz
-=======
-    wget https://seafile-downloads.oss-cn-shanghai.aliyuncs.com/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz && \
-    tar -zxvf seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz && \
-    rm -f seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz
->>>>>>> 673165a7da4647ef0fb79bfcc081cf57fbd6b204
 
 # For using TLS connection to LDAP/AD server with docker-ce.
 RUN find /opt/seafile/ \( -name "liblber-*" -o -name "libldap-*" -o -name "libldap_r*" -o -name "libsasl2.so*" -o -name "libcrypt.so.1" \) -delete
