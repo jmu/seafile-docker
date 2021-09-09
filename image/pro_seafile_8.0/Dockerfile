@@ -1,5 +1,5 @@
 # See https://hub.docker.com/r/phusion/baseimage/tags/
-FROM phusion/baseimage:0.11
+FROM phusion/baseimage:focal-1.0.0
 ENV SEAFILE_SERVER=seafile-pro-server SEAFILE_VERSION=
 
 RUN apt-get update --fix-missing
@@ -13,8 +13,11 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get install tzdata -y
 # Nginx
 RUN apt-get install -y nginx
 
-#
+# Mysqlclient
 RUN apt-get install -y libmysqlclient-dev
+
+# Memcache
+RUN apt-get install -y libmemcached11 libmemcached-dev
 
 # Java
 RUN apt-get install -y openjdk-8-jre
@@ -26,10 +29,13 @@ RUN apt-get install -y ttf-wqy-microhei ttf-wqy-zenhei xfonts-wqy
 # Tools
 RUN apt-get install -y zlib1g-dev pwgen openssl poppler-utils
 
+# Fuse
+RUN apt-get install -y fuse
 
 # Python3
-RUN apt-get install -y python3 python3-pip python3-setuptools python3-ldap python-rados
-RUN python3.6 -m pip install --upgrade pip && rm -r /root/.cache/pip
+RUN apt-get install -y python3 python3-pip python3-setuptools python3-ldap python3-rados
+RUN rm -f /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
+RUN python3 -m pip install --upgrade pip && rm -r /root/.cache/pip
 
 RUN pip3 install --timeout=3600 click termcolor colorlog pymysql \
     django==2.2.* && rm -r /root/.cache/pip
@@ -43,7 +49,7 @@ RUN pip3 install --timeout=3600 boto oss2 pycryptodome twilio python-ldap config
 
 
 # Scripts
-COPY scripts_7.1 /scripts
+COPY scripts_8.0 /scripts
 COPY templates /templates
 COPY services /services
 RUN chmod u+x /scripts/*
@@ -63,7 +69,7 @@ WORKDIR /opt/seafile
 
 RUN mkdir -p /opt/seafile/ && cd /opt/seafile/ && \
     wget -O seafile-pro-server_${SEAFILE_VERSION}_x86-64_Ubuntu.tar.gz \
-    "https://download.seafile.com/d/6e5297246c/files/?p=/pro/seafile-pro-server_${SEAFILE_VERSION}_x86-64_Ubuntu.tar.gz&dl=1" && \
+    "https://download.seafile.top/d/8c29766a64d24122936f/files/?p=/seafile-pro-server_${SEAFILE_VERSION}_x86-64_Ubuntu.tar.gz&dl=1" && \
     tar -zxvf seafile-pro-server_${SEAFILE_VERSION}_x86-64_Ubuntu.tar.gz && \
     rm -f seafile-pro-server_${SEAFILE_VERSION}_x86-64_Ubuntu.tar.gz
 
@@ -71,4 +77,4 @@ RUN mkdir -p /opt/seafile/ && cd /opt/seafile/ && \
 EXPOSE 80
 
 
-CMD ["/sbin/my_init", "--", "/scripts/start.py"]
+CMD ["/sbin/my_init", "--", "/scripts/enterpoint.sh"]
