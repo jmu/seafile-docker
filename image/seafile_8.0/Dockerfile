@@ -1,5 +1,6 @@
 # See https://hub.docker.com/r/phusion/baseimage/tags/
-FROM phusion/baseimage:focal-1.0.0
+FROM phusion/baseimage:bionic-1.0.0-arm64
+
 ENV SEAFILE_SERVER=seafile-server SEAFILE_VERSION=8.0.7
 
 RUN apt-get update --fix-missing
@@ -16,7 +17,7 @@ RUN apt-get install -y nginx
 # for mysql
 #RUN apt-get install -y libmysqlclient-dev libmemcached-dev zlib1g-dev 
 # for maria
-RUN apt-get install -y libmariadbclient-dev libmemcached-dev zlib1g-dev
+RUN apt-get install -y libmariadbclient-dev zlib1g-dev
 
 # Memcache
 RUN apt-get install -y libmemcached11 libmemcached-dev
