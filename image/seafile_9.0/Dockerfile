@@ -50,9 +50,12 @@ RUN echo "TLS_REQCERT     allow" >> /etc/ldap/ldap.conf && \
 WORKDIR /opt/seafile
 
 RUN mkdir -p /opt/seafile/ && cd /opt/seafile/ && \
-    wget https://seafile-downloads.oss-cn-shanghai.aliyuncs.com/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz && \
-    tar -zxvf seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz && \
-    rm -f seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz && \
+    #wget https://seafile-downloads.oss-cn-shanghai.aliyuncs.com/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz && \
+    #tar -zxvf seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz && \
+    #rm -f seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz && \
+    wget https://github.com/haiwen/seafile-rpi/releases/download/v${SEAFILE_VERSION}/seafile-server-${SEAFILE_VERSION}-focal-arm64v8l.tar.gz && \
+    tar -zxvf seafile-server-${SEAFILE_VERSION}-focal-arm64v8l.tar.gz && \
+    rm -f seafile-server-${SEAFILE_VERSION}-focal-arm64v8l.tar.gz && \ 
     find /opt/seafile/ \( -name "liblber-*" -o -name "libldap-*" -o -name "libldap_r*" -o -name "libsasl2.so*" -o -name "libcrypt.so.1" \) -delete
 
 EXPOSE 80
