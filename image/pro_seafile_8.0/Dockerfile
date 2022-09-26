@@ -19,6 +19,9 @@ RUN apt-get install -y libmysqlclient-dev
 # Memcache
 RUN apt-get install -y libmemcached11 libmemcached-dev
 
+# SAML
+RUN apt-get install -y libxmlsec1 xmlsec1
+
 # Java
 RUN apt-get install -y openjdk-8-jre
 
@@ -40,7 +43,7 @@ RUN python3 -m pip install --upgrade pip && rm -r /root/.cache/pip
 RUN pip3 install --timeout=3600 click termcolor colorlog pymysql \
     django==2.2.* && rm -r /root/.cache/pip
 
-RUN pip3 install --timeout=3600 future mysqlclient Pillow pylibmc captcha jinja2 \
+RUN pip3 install --timeout=3600 future mysqlclient Pillow pylibmc captcha markupsafe==2.0.1 jinja2 \
     sqlalchemy django-pylibmc django-simple-captcha pyjwt && \
     rm -r /root/.cache/pip
 
