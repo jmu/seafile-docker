@@ -45,4 +45,4 @@ jobs:
         push: true
         cache-from: type=registry,ref=jmu/seafile-docker:buildcache
         cache-to: type=registry,ref=jmu/seafile-docker:buildcache,mode=max
-        tags: ${{ steps.meta.outputs.tags }}
+        tags: ${{ env.SEAFILE_VERSION }}
