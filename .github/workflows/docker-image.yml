@@ -41,7 +41,7 @@ jobs:
       with:
         context: .
         file: ./image/seafile_9.0/Dockerfile
-        platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
+        platforms: linux/amd64,linux/arm64
         push: true
         cache-from: type=registry,ref=jmu/seafile-docker:buildcache
         cache-to: type=registry,ref=jmu/seafile-docker:buildcache,mode=max
