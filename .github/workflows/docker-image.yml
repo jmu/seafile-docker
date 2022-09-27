@@ -45,6 +45,6 @@ jobs:
         file: ./image/seafile_9.0/Dockerfile
         platforms: linux/arm64
         push: true
-        cache-from: type=registry,ref=jmu/seafile-docker:buildcache
-        cache-to: type=registry,ref=jmu/seafile-docker:buildcache,mode=max
-        tags: ${{ env.SEAFILE_VERSION }}
+        cache-from: type=registry,ref=jmujmu/seafile-pi:buildcache
+        cache-to: type=registry,ref=jmujmu/seafile-pi:buildcache,mode=max
+        tags: jmujmu/seafile-pi:${{ env.SEAFILE_VERSION }}
